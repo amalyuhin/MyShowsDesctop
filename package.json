@@ -1,0 +1,19 @@
+{
+  "name": "myshows-desktop",
+  "version": "1.0.0",
+  "description": "MyShows desktop client",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "electron-builder": "^7.10.2",
+    "electron-prebuilt": "^1.4.2",
+    "typescript": "^2.0.3",
+    "typings": "^1.4.0",
+    "webpack": "^1.13.2"
+  }
+}
