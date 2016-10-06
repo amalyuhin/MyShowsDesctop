@@ -11,7 +11,7 @@ function createMainWindow() {
     height: 600
   });
 
-  mainWindow.loadURL(`file://${__dirname}/index.html`);
+  mainWindow.loadURL(`file://${__dirname}/dist/index.html`);
   mainWindow.on('closed', () => {
     mainWindow = null;
   });
