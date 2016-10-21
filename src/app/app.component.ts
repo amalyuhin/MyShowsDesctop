@@ -12,6 +12,7 @@ import { AuthService } from './auth.service';
 })
 export class AppComponent implements OnInit {
   loginForm: FormGroup;
+  data: any;
 
   constructor(
     private formBuilder: FormBuilder,
