@@ -1,43 +1,53 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Router } from '@angular/router';
 
-import { Observable }        from 'rxjs/Observable';
-
-import { AuthService } from './auth.service';
+import { AppToolbarService } from './shared/appToolbar.service';
 
 @Component({
   selector: 'app',
-  templateUrl: './app.component.html',
-  providers: [AuthService]
+  styles: [
+    require('@angular/material/core/theming/prebuilt/indigo-pink.scss')
+  ],
+  template: `
+  <md-toolbar color="primary">
+    <button md-icon-button *ngIf="toolbarShowMenu">
+      <md-icon>menu</md-icon>
+    </button>
+    <span>{{ toolbarTitle }}</span>
+  </md-toolbar>
+  <router-outlet></router-outlet>
+  `,
 })
-export class AppComponent implements OnInit {
-  loginForm: FormGroup;
-  data: any;
+export class AppComponent implements OnInit, OnDestroy {
+  toolbarTitle: string = 'MyShows';
+  toolbarShowMenu: boolean = false;
+  loading: boolean;
+  isLoggedIn: boolean;
 
   constructor(
-    private formBuilder: FormBuilder,
-    private authService: AuthService
-  ) {}
-
-  ngOnInit() {
-    this.loginForm = this.formBuilder.group({
-      login: '',
-      password: ''
-    });
+    private router: Router,
+    private appToolbarService: AppToolbarService
+  ) {
+    this.isLoggedIn = false;
+    this.loading = true;
   }
 
-  onSubmit() {
-      let data = this.loginForm.value;
-      this.authService
-        .login(data.login, data.password)
-        .subscribe(
-          (res) => {
-            console.log('Auth result:', res);
-          },
-          (err) => {
-            console.log('Auth error:', err);
-          }
-        )
+  ngOnInit() {
+    this.appToolbarService.titleChanged$.subscribe((title: string) => this.onToolbarTitleChanged(title));
+    this.appToolbarService.showMenu$.subscribe((show: boolean) => this.onToolbarShowMenuChanged(show));
+  }
 
+  ngOnDestroy() {
+    this.appToolbarService.titleChanged$.unsubscribe();
+    this.appToolbarService.showMenu$.unsubscribe();
+  }
+
+  onToolbarTitleChanged(title: string) {
+    this.toolbarTitle = title;
+  }
+
+  onToolbarShowMenuChanged(show: boolean) {
+    console.log('show menu', show);
+    this.toolbarShowMenu = show;
   }
 }

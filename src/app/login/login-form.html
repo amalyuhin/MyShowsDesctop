@@ -1,0 +1,5 @@
+<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+  <md-input type="text" formControlName="login" placeholder="Login"></md-input>
+  <md-input type="password" formControlName="password" placeholder="Password"></md-input>
+  <button md-raised-button color="primary" type="submit">LogIn</button>
+</form>

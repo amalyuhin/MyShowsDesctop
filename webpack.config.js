@@ -4,7 +4,12 @@ const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
+const env = process.env.NODE_ENV || 'dev';
 const buildDir = path.resolve(__dirname, 'dist');
+
+let apiHost = env === 'prod'
+  ? 'http://api.myshows.ru'
+  : 'api'
 
 module.exports = function makeWebpackConfig() {
   let config = {};
@@ -17,8 +22,8 @@ module.exports = function makeWebpackConfig() {
 
   config.output = {
     path: buildDir,
-    publicPath: '/',
-    filename: './js/[name].js'
+    publicPath: env === 'prod' ? buildDir : '/',
+    filename: 'js/[name].js'
   };
 
   config.resolve = {
@@ -39,6 +44,38 @@ module.exports = function makeWebpackConfig() {
       {
         test: /\.json$/,
         loader: 'json'
+      },
+      {
+        test: /\.css$/,
+        loaders: ['to-string-loader', 'css-loader']
+      },
+      {
+        test: /\.less$/,
+        loader: 'style!css!less'
+      },
+      {
+        test: /\.scss$/,
+        loaders: ['raw', 'sass']
+      },
+      {
+        test: /\.woff(\?v=\d+\.\d+\.\d+)?$/,
+        loader: "url?limit=10000&minetype=application/font-woff"
+      },
+      {
+        test: /\.woff2(\?v=\d+\.\d+\.\d+)?$/,
+        loader: "url?limit=10000&minetype=application/font-woff"
+      },
+      {
+        test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,
+        loader: "url?limit=10000&minetype=application/octet-stream"
+      },
+      {
+        test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
+        loader: "file"
+      },
+      {
+        test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
+        loader: "url?limit=10000&minetype=image/svg+xml"
       }
     ]
   };
@@ -50,6 +87,10 @@ module.exports = function makeWebpackConfig() {
 
     new HtmlWebpackPlugin({
       template: './src/index.html'
+    }),
+
+    new webpack.DefinePlugin({
+      'API_HOST': JSON.stringify(apiHost)
     })
   ];
 
@@ -59,7 +100,7 @@ module.exports = function makeWebpackConfig() {
     quiet: true,
     stats: 'minimal', // none (or false), errors-only, minimal, normal (or true) and verbose
     proxy: {
-      '/api': {
+      '/api/': {
         target: 'http://api.myshows.ru',
         pathRewrite: { '^/api': '' },
         changeOrigin: true
