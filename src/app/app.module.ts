@@ -8,9 +8,11 @@ import { routing } from './app.routes';
 import { AppComponent } from './app.component';
 import { MainComponent } from './main.component';
 import { LoginComponent } from './login/login.component';
-import { ApiService } from './shared/api.service';
-import { AppToolbarService } from './shared/appToolbar.service';
-import { DataService } from './shared/data.service';
+import { ApiService } from './shared/services/api.service';
+import { AppToolbarService } from './shared/services/appToolbar.service';
+import { DataService } from './shared/services/data.service';
+import { LayoutDirective } from './shared/directives/layout.directive';
+import { FlexDirective } from './shared/directives/flex.directive';
 
 enableProdMode();
 
@@ -26,7 +28,7 @@ enableProdMode();
     MaterialModule.forRoot()
   ],
   providers: [ApiService, AppToolbarService, DataService],
-  declarations: [AppComponent, MainComponent, LoginComponent],
+  declarations: [AppComponent, FlexDirective, LayoutDirective, MainComponent, LoginComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

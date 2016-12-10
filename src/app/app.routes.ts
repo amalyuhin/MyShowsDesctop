@@ -9,4 +9,4 @@ export const routes: Routes = [
   { path: 'login', component: LoginComponent }
 ];
 
-export const routing: ModuleWithProviders = RouterModule.forRoot(routes);
+export const routing: ModuleWithProviders = RouterModule.forRoot(routes, { useHash: true });

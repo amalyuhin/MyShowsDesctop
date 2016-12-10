@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { AppToolbarService } from './shared/appToolbar.service';
+import { AppToolbarService } from './shared/services/appToolbar.service';
 
 @Component({
   selector: 'app',
@@ -9,7 +9,7 @@ import { AppToolbarService } from './shared/appToolbar.service';
     require('@angular/material/core/theming/prebuilt/indigo-pink.scss')
   ],
   template: `
-  <md-toolbar color="primary">
+  <md-toolbar color="primary" layout="column">
     <button md-icon-button *ngIf="toolbarShowMenu">
       <md-icon>menu</md-icon>
     </button>

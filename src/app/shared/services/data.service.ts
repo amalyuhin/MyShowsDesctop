@@ -1,3 +1,5 @@
+import * as _  from 'lodash';
+
 export class DataService {
   private shows: any;
 
@@ -11,5 +13,9 @@ export class DataService {
 
   getShows(): any {
       return this.shows;
+  }
+
+  findShow(id: number): any {
+    return _.find(this.shows, { 'showId': id });
   }
 }

@@ -3,6 +3,8 @@ import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs';
 import { Md5 } from 'ts-md5/dist/md5';
 
+import { ShowEntity } from '../entities/show.entity';
+
 
 @Injectable()
 export class ApiService {
@@ -27,7 +29,7 @@ export class ApiService {
       .map((response: Response) => response.json());
   }
 
-  getProfileShows(): Observable<any[]> {
+  getProfileShows(): Observable<ShowEntity[]> {
     let url = `${API_HOST}/profile/shows/`;
 
     return this
@@ -35,12 +37,13 @@ export class ApiService {
       .get(url)
       .map((response: Response) => {
         let items = response.json();
-        let result: Array<any> = [];
+        let result: Array<ShowEntity> = [];
 
         Object.keys(items).forEach((key) => {
-          result.push(items[key]);
+          let show = ShowEntity.fromJSON(items[key]);
+          result.push(show);
         });
-        
+
         return result;
       });
   }

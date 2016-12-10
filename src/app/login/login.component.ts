@@ -4,8 +4,8 @@ import { Router } from '@angular/router';
 
 import { Observable }        from 'rxjs/Observable';
 
-import { ApiService } from '../shared/api.service';
-import { AppToolbarService } from '../shared/appToolbar.service';
+import { ApiService } from '../shared/services/api.service';
+import { AppToolbarService } from '../shared/services/appToolbar.service';
 
 @Component({
   templateUrl: './login-form.html'

@@ -1,26 +1,27 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { ApiService } from './shared/api.service';
-import { DataService } from './shared/data.service';
-import { AppToolbarService } from './shared/appToolbar.service';
+import { ApiService } from './shared/services/api.service';
+import { DataService } from './shared/services/data.service';
+import { AppToolbarService } from './shared/services/appToolbar.service';
+import { ShowEntity } from './shared/entities/show.entity';
 
 @Component({
   template: `
     <p *ngIf="!shows">Checking authentication ...</p>
     <md-list *ngIf="shows">
       <md-list-item *ngFor="let show of shows">
-        <img md-list-avatar src="{{ show.image }}" width="48" />
-        <div md-line>
-          <h3>{{ show.title }}</h3>
-          <p>{{ show.ruTitle ? show.ruTitle : '' }}</p>
-        </div>
+        <img md-list-avatar src="{{ show.image }}" width="40" />
+        <h3 md-line>{{ show.title }}</h3>
+        <p md-line>
+          <span class="demo-2">{{ show.ruTitle ? show.ruTitle : '' }}</span>
+        </p>
       </md-list-item>
     </md-list>
   `
 })
 export class MainComponent implements OnInit {
-  shows: any;
+  shows: ShowEntity[];
 
   constructor(
     private router: Router,
@@ -35,7 +36,7 @@ export class MainComponent implements OnInit {
     this.apiService
       .getProfileShows()
       .subscribe(
-        (shows: any) => {
+        (shows: ShowEntity[]) => {
           this.appToolbarService.setTitle('MyShows');
           this.appToolbarService.showMenu(true);
 
