@@ -27,8 +27,8 @@ module.exports = function makeWebpackConfig() {
   };
 
   config.resolve = {
-    extensions: ['', '.ts', '.js', '.json', '.html'],
-    modulesDirectories: ['node_modules']
+    extensions: ['.ts', '.js', '.json', '.html'],
+    modules: ['node_modules']
   };
 
   config.module = {
@@ -39,7 +39,7 @@ module.exports = function makeWebpackConfig() {
       },
       {
         test: /\.html$/,
-        loader: 'html'
+        loader: 'html-loader'
       },
       {
         test: /\.json$/,
@@ -55,7 +55,7 @@ module.exports = function makeWebpackConfig() {
       },
       {
         test: /\.scss$/,
-        loaders: ['raw', 'sass']
+        loaders: ['raw-loader', 'sass-loader']
       },
       {
         test: /\.woff(\?v=\d+\.\d+\.\d+)?$/,
