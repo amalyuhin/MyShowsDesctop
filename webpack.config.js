@@ -100,10 +100,15 @@ module.exports = function makeWebpackConfig() {
     quiet: true,
     stats: 'minimal', // none (or false), errors-only, minimal, normal (or true) and verbose
     proxy: {
-      '/api/': {
+      '/api/*': {
         target: 'http://api.myshows.ru',
         pathRewrite: { '^/api': '' },
-        changeOrigin: true
+        changeOrigin: true,
+        onProxyRes: (proxyRes, req, res) => {
+          if (proxyRes.statusCode === 302 && proxyRes.headers['location']) {
+            proxyRes.headers['location'] = proxyRes.headers['location'].replace('api.myshows.ru', req.get('host') + '/api');
+          }
+        }
       }
     }
   };

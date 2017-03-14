@@ -10,7 +10,6 @@ export class AppToolbarService {
   }
 
   setTitle(title: string) {
-    console.log('emit');
     this.titleChanged$.emit(title);
   }
 

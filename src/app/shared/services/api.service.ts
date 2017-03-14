@@ -3,6 +3,7 @@ import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs';
 import { Md5 } from 'ts-md5/dist/md5';
 
+import { ProfileEntity } from '../entities/profile.entity';
 import { ShowEntity } from '../entities/show.entity';
 
 
@@ -20,13 +21,16 @@ export class ApiService {
       .get(url);
   }
 
-  getProfile(): Observable<any> {
+  getProfile(): Observable<ProfileEntity> {
     let url = `${API_HOST}/profile/`;
 
     return this
       .http
       .get(url)
-      .map((response: Response) => response.json());
+      .map((response: Response) => {
+        let data = response.json();
+        return ProfileEntity.fromJSON(data);
+      });
   }
 
   getProfileShows(): Observable<ShowEntity[]> {

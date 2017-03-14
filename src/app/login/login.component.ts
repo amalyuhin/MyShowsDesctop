@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { Observable }        from 'rxjs/Observable';
 
 import { ApiService } from '../shared/services/api.service';
+import { DataService } from '../shared/services/data.service';
 import { AppToolbarService } from '../shared/services/appToolbar.service';
 
 @Component({

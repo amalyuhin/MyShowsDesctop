@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 
 import { ApiService } from './shared/services/api.service';
 import { DataService } from './shared/services/data.service';
 import { AppToolbarService } from './shared/services/appToolbar.service';
+import { ProfileEntity } from './shared/entities/profile.entity';
 import { ShowEntity } from './shared/entities/show.entity';
 
 @Component({
@@ -21,6 +23,7 @@ import { ShowEntity } from './shared/entities/show.entity';
   `
 })
 export class MainComponent implements OnInit {
+  profile: ProfileEntity;
   shows: ShowEntity[];
 
   constructor(
@@ -42,11 +45,20 @@ export class MainComponent implements OnInit {
 
           this.dataService.setShows(shows);
           this.shows = shows;
+
+          this.apiService
+            .getProfile()
+            .subscribe((profile: ProfileEntity) => {
+              this.appToolbarService.setTitle('MyShows');
+              this.appToolbarService.showMenu(true);
+              //this.profile = profile;
+              this.dataService.setProfile(profile);
+            });
         },
         (error: any) => {
           console.error(error);
           this.router.navigate(['/login']);
         }
-      )
+      );
   }
 }
