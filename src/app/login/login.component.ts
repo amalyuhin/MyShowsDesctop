@@ -2,11 +2,13 @@ import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 
-import { Observable }        from 'rxjs/Observable';
+import { Observable } from 'rxjs/Observable';
 
 import { ApiService } from '../shared/services/api.service';
 import { DataService } from '../shared/services/data.service';
 import { AppToolbarService } from '../shared/services/appToolbar.service';
+
+require('./login.less');
 
 @Component({
   templateUrl: './login-form.html'
@@ -24,8 +26,9 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     console.log('auth');
-    this.appToolbarService.setTitle('Log In');
-    this.appToolbarService.showMenu(false);
+    //this.appToolbarService.setTitle('Log In');
+    this.appToolbarService.showToolbar(false);
+    this.appToolbarService.showMenuButton(false);
 
     this.loginForm = this.formBuilder.group({
       login: '',

@@ -1,4 +1,5 @@
 import * as moment from 'moment';
+import { EpisodeEntity } from './episode.entity';
 
 export class ShowEntity {
   id: number;
@@ -7,8 +8,8 @@ export class ShowEntity {
   description: string;
   country: string;
   year: number;
-  started: Date;
-  ended: Date;
+  started: moment.Moment;
+  ended: moment.Moment;
   image: string;
   rating: number;
   runtime: number;
@@ -21,6 +22,15 @@ export class ShowEntity {
   watchedEpisodes: number;
   voted: number;
   watching: number;
+  episodes: Array<EpisodeEntity>;
+
+  public addEpisode(episode: EpisodeEntity) {
+    if (!this.episodes) {
+      this.episodes = [];
+    }
+
+    this.episodes.push(episode);
+  }
 
   public static fromJSON(json: any) : ShowEntity {
     if (!json.id && !json.showId) {
@@ -31,9 +41,9 @@ export class ShowEntity {
     let properties = Object.keys(json);
 
     properties.forEach((prop: string) => {
-      if (json.hasOwnProperty(prop) && typeof json[prop] !== 'function') {
+      if (json.hasOwnProperty(prop) && typeof json[prop] !== 'function' && prop !== 'episodes') {
         if (prop === 'starded' || prop === 'ended') {
-          instance[prop] = moment(json[prop], 'MMM/DD/YYYY').toDate();
+          instance[prop] = moment(json[prop], 'MMM/DD/YYYY');
         } else {
           instance[prop] = json[prop];
         }
@@ -42,6 +52,13 @@ export class ShowEntity {
 
     if (json.showId) {
       instance.id = json.showId;
+    }
+
+    if (json.episodes) {
+      let episodesKeys = Object.keys(json.episodes);
+      episodesKeys.forEach((key: any) => {
+        instance.addEpisode(EpisodeEntity.fromJSON(json.episodes[key]));
+      });
     }
 
     return instance;

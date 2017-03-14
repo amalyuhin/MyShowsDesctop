@@ -11,14 +11,14 @@ import { ProfileEntity } from './shared/entities/profile.entity';
     require('@angular/material/core/theming/prebuilt/indigo-pink.scss')
   ],
   template: `
-  <md-toolbar color="primary" layout="column">
-    <button md-icon-button *ngIf="toolbarShowMenu" (click)="sidenav.toggle()">
-      <md-icon>menu</md-icon>
-    </button>
-    <span>{{ toolbarTitle }}</span>
-  </md-toolbar>
-  <md-sidenav-container>
-    <md-sidenav style="width:60%" class="md-sidenav-left" #sidenav>
+  <md-sidenav-container fullscreen>
+    <md-toolbar color="primary" layout="column" *ngIf="showToolbar">
+      <button md-icon-button *ngIf="showMenuButton" (click)="sidenav.toggle()">
+        <md-icon>menu</md-icon>
+      </button>
+      <span>{{ toolbarTitle }}</span>
+    </md-toolbar>
+    <md-sidenav style="width:60%" class="md-sidenav-left" #sidenav mode="over">
       <div *ngIf="profile">
         <md-nav-list>
           <md-list-item>
@@ -39,10 +39,12 @@ import { ProfileEntity } from './shared/entities/profile.entity';
 })
 export class AppComponent implements OnInit, OnDestroy {
   toolbarTitle: string = 'MyShows';
-  toolbarShowMenu: boolean = false;
+  showToolbar: boolean = false;
+  showMenuButton: boolean = false;
+
+
   loading: boolean;
   isLoggedIn: boolean;
-
   profile: ProfileEntity;
 
   constructor(
@@ -56,21 +58,25 @@ export class AppComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.appToolbarService.titleChanged$.subscribe((title: string) => this.onToolbarTitleChanged(title));
-    this.appToolbarService.showMenu$.subscribe((show: boolean) => this.onToolbarShowMenuChanged(show));
+    this.appToolbarService.showToolbar$.subscribe((show: boolean) => this.onToolbarShowToolbarChanged(show));
+    this.appToolbarService.showMenuButton$.subscribe((show: boolean) => this.onToolbarShowMenuButtonChanged(show));
     this.dataService.profileChanged$.subscribe((profile: ProfileEntity) => this.profile = profile);
   }
 
   ngOnDestroy() {
     this.appToolbarService.titleChanged$.unsubscribe();
-    this.appToolbarService.showMenu$.unsubscribe();
+    this.appToolbarService.showMenuButton$.unsubscribe();
   }
 
   onToolbarTitleChanged(title: string) {
     this.toolbarTitle = title;
   }
 
-  onToolbarShowMenuChanged(show: boolean) {
-    console.log('show menu', show);
-    this.toolbarShowMenu = show;
+  onToolbarShowToolbarChanged(show: boolean) {
+    this.showToolbar = show;
+  }
+
+  onToolbarShowMenuButtonChanged(show: boolean) {
+    this.showMenuButton = show;
   }
 }

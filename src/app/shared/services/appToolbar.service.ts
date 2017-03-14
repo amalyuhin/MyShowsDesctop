@@ -2,18 +2,24 @@ import { EventEmitter } from '@angular/core';
 
 export class AppToolbarService {
   public titleChanged$: EventEmitter<string>;
-  public showMenu$: EventEmitter<boolean>;
+  public showToolbar$: EventEmitter<boolean>;
+  public showMenuButton$: EventEmitter<boolean>;
 
   constructor() {
     this.titleChanged$ = new EventEmitter<string>();
-    this.showMenu$ = new EventEmitter<boolean>();
+    this.showToolbar$ = new EventEmitter<boolean>();
+    this.showMenuButton$ = new EventEmitter<boolean>();
   }
 
   setTitle(title: string) {
     this.titleChanged$.emit(title);
   }
 
-  showMenu(show: boolean) {
-    this.showMenu$.emit(show);
+  showToolbar(show: boolean) {
+    this.showToolbar$.emit(show);
+  }
+
+  showMenuButton(show: boolean) {
+    this.showMenuButton$.emit(show);
   }
 }

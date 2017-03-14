@@ -41,7 +41,8 @@ export class MainComponent implements OnInit {
       .subscribe(
         (shows: ShowEntity[]) => {
           this.appToolbarService.setTitle('MyShows');
-          this.appToolbarService.showMenu(true);
+          this.appToolbarService.showToolbar(true);
+          this.appToolbarService.showMenuButton(true);
 
           this.dataService.setShows(shows);
           this.shows = shows;
@@ -49,9 +50,6 @@ export class MainComponent implements OnInit {
           this.apiService
             .getProfile()
             .subscribe((profile: ProfileEntity) => {
-              this.appToolbarService.setTitle('MyShows');
-              this.appToolbarService.showMenu(true);
-              //this.profile = profile;
               this.dataService.setProfile(profile);
             });
         },
