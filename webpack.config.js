@@ -51,7 +51,7 @@ module.exports = function makeWebpackConfig() {
       },
       {
         test: /\.less$/,
-        loader: 'style!css!less'
+        loaders: ['style-loader', 'css-loader', 'less-loader']
       },
       {
         test: /\.scss$/,
