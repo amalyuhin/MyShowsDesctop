@@ -1,0 +1,23 @@
+<md-list>
+  <div *ngFor="let show of shows">
+    <div md-line fxLayout="row">
+      <div fxFlex="90">{{ show.ruTitle || show.title }}</div>
+      <div fxFlex="10">
+        <button  color="primary" md-icon-button (click)="toggleShowEpisodes(show)">
+          <md-icon *ngIf="isShowEpisodesVisible(show)">keyboard_arrow_up</md-icon>
+          <md-icon *ngIf="!isShowEpisodesVisible(show)">keyboard_arrow_down</md-icon>
+        </button>
+      </div>
+    </div>
+    <div *ngIf="isShowEpisodesVisible(show)">
+      <md-list-item *ngFor="let episode of show.episodes">
+        <div md-line fxLayout="row" fxLayoutAlign="space-between center">
+          <div fxFlex="10">{{ episode.seasonNumber }}x{{ episode.episodeNumber }}</div>
+          <div fxFlex="70">{{ episode.title }}</div>
+          <div fxFlex="20">{{ episode.airDate.format('DD.MM.YYYY') }}</div>
+        </div>
+      </md-list-item>
+    </div>
+    <md-divider></md-divider>
+  </div>
+</md-list>

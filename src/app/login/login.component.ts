@@ -7,6 +7,7 @@ import { Observable } from 'rxjs/Observable';
 import { ApiService } from '../shared/services/api.service';
 import { DataService } from '../shared/services/data.service';
 import { AppToolbarService } from '../shared/services/appToolbar.service';
+import { ProfileEntity } from '../shared/entities/profile.entity';
 
 require('./login.less');
 
@@ -21,6 +22,7 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private formBuilder: FormBuilder,
     private apiService: ApiService,
+    private dataService: DataService,
     private appToolbarService: AppToolbarService
   ) {}
 
@@ -43,7 +45,13 @@ export class LoginComponent implements OnInit {
         .subscribe(
           (res) => {
             console.log('Auth result:', res);
-            this.router.navigate(['/']);
+
+            this.apiService
+              .getProfile()
+              .subscribe((profile: ProfileEntity) => {
+                this.dataService.setProfile(profile);
+                this.router.navigate(['/']);
+              });
           },
           (err) => {
             console.log('Auth error:', err);

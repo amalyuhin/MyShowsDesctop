@@ -1,7 +1,9 @@
 import * as moment from 'moment';
+import { ShowEntity } from './show.entity';
 
 export class EpisodeEntity {
   id: number;
+  showId: number;
   title: string;
   image: string;
   episodeNumber: number;

@@ -1,16 +1,19 @@
 import { Injectable }     from '@angular/core';
-import { Http, Response } from '@angular/http';
+import { Response } from '@angular/http';
 import { Observable } from 'rxjs';
 import { Md5 } from 'ts-md5/dist/md5';
 
+import { HttpService } from './http.service';
+import { DataService } from '../services/data.service';
 import { ProfileEntity } from '../entities/profile.entity';
 import { ShowEntity } from '../entities/show.entity';
+import { EpisodeEntity } from '../entities/episode.entity';
 
 
 @Injectable()
 export class ApiService {
 
-  constructor(private http: Http) {}
+  constructor(private http: HttpService, private dataService: DataService) {}
 
   login(login: string, password: string): Observable<any> {
     let passHash = Md5.hashStr(password);
@@ -29,6 +32,8 @@ export class ApiService {
       .get(url)
       .map((response: Response) => {
         let data = response.json();
+        localStorage.setItem('profile', JSON.stringify(data));
+
         return ProfileEntity.fromJSON(data);
       });
   }
@@ -50,6 +55,25 @@ export class ApiService {
 
         return result;
       });
+  }
+
+  getUnwatchedEpisodes(): Observable<EpisodeEntity[]> {
+      let url = `${API_HOST}/profile/episodes/unwatched/`;
+
+      return this
+        .http
+        .get(url)
+        .map((response: Response) => {
+          let items = response.json();
+          let result: Array<EpisodeEntity> = [];
+
+          Object.keys(items).forEach((key) => {
+            let entity = EpisodeEntity.fromJSON(items[key]);
+            result.push(entity);
+          });
+
+          return result;
+        });
   }
 
   getNextEpisodes(): Observable<any> {

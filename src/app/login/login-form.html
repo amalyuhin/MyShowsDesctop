@@ -1,13 +1,13 @@
 <div class="login-container">
-  <form class="login-form" [formGroup]="loginForm" (ngSubmit)="onSubmit()" layout="column">
-    <md-input-container flex>
+  <form class="login-form" [formGroup]="loginForm" (ngSubmit)="onSubmit()" fxLayout="column">
+    <md-input-container>
       <input mdInput type="text" formControlName="login" placeholder="Login"/>
     </md-input-container>
 
-    <md-input-container flex>
+    <md-input-container>
       <input mdInput type="password" formControlName="password" placeholder="Password"/>
     </md-input-container>
 
-    <button md-raised-button color="primary" type="submit" flex>LogIn</button>
+    <button md-raised-button color="primary" type="submit">LogIn</button>
   </form>
 </div>

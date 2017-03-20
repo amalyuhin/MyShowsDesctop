@@ -26,9 +26,11 @@ import { ProfileEntity } from './shared/entities/profile.entity';
             <h3 md-line>{{ profile.login }}</h3>
           </md-list-item>
           <md-list-item *ngIf="profile.stats">
-            <div>Просмотрено эпизодов: {{ profile.stats.watchedEpisodes }}</div>
-            <div>Потрачено часов: {{ profile.stats.watchedHours }}</div>
-            <div>Потрачено дней: {{ profile.stats.watchedDays }}</div>
+            <div md-line fxLayout="row" fxLayoutAlign="space-between center">
+              <div>{{ profile.stats.watchedEpisodes }}<br>эпизодов</div>
+              <div>{{ profile.stats.watchedHours }}<br/>часов</div>
+              <div>{{ profile.stats.watchedDays }}<br/>дней</div>
+            </div>
           </md-list-item>
         </md-nav-list>
       </div>
@@ -57,6 +59,11 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    let profile = localStorage.getItem('profile');
+    if (profile) {
+        this.profile = ProfileEntity.fromJSON(JSON.parse(profile));
+    }
+
     this.appToolbarService.titleChanged$.subscribe((title: string) => this.onToolbarTitleChanged(title));
     this.appToolbarService.showToolbar$.subscribe((show: boolean) => this.onToolbarShowToolbarChanged(show));
     this.appToolbarService.showMenuButton$.subscribe((show: boolean) => this.onToolbarShowMenuButtonChanged(show));
