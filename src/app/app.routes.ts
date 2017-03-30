@@ -3,11 +3,11 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { AuthGuard } from './shared/guards/auth.guard';
 import { MainComponent } from './main.component';
-import { NewEpisodesComponent } from './new-episodes/new-episodes.component';
+import { NewEpisodesListComponent } from './new-episodes-list/new-episodes-list.component';
 import { LoginComponent } from './login/login.component';
 
 export const routes: Routes = [
-  { path: '', component: NewEpisodesComponent, canActivate: [AuthGuard] },
+  { path: '', component: NewEpisodesListComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent }
 ];
 

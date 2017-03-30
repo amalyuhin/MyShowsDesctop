@@ -10,7 +10,8 @@ import { HttpService } from './shared/services/http.service';
 import { routing } from './app.routes';
 import { AppComponent } from './app.component';
 import { MainComponent } from './main.component';
-import { NewEpisodesComponent } from './new-episodes/new-episodes.component';
+import { NewEpisodesListComponent } from './new-episodes-list/new-episodes-list.component';
+import { NewEpisodesItemComponent } from './new-episodes-list/new-episodes-item/new-episodes-item.component';
 import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './shared/guards/auth.guard';
 import { ApiService } from './shared/services/api.service';
@@ -45,7 +46,7 @@ enableProdMode();
     AppToolbarService,
     DataService
   ],
-  declarations: [AppComponent, MainComponent, NewEpisodesComponent, LoginComponent],
+  declarations: [AppComponent, MainComponent, NewEpisodesListComponent, NewEpisodesItemComponent, LoginComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

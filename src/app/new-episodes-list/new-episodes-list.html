@@ -1,0 +1,22 @@
+<div class="new-episodes-list">
+  <md-card *ngFor="let show of shows">
+    <md-card-header>
+      <md-card-title>{{ show.ruTitle || show.title }}</md-card-title>
+    </md-card-header>
+
+    <md-card-content>
+      <new-episodes-item [item]="show"></new-episodes-item>
+    </md-card-content>
+    <!-- <div md-line fxLayout="row">
+      <div fxFlex="90">{{ show.ruTitle || show.title }}</div>
+      <div fxFlex="10">
+        <button  color="primary" md-icon-button (click)="toggleShowEpisodes(show)">
+          <md-icon *ngIf="isShowEpisodesVisible(show)">keyboard_arrow_up</md-icon>
+          <md-icon *ngIf="!isShowEpisodesVisible(show)">keyboard_arrow_down</md-icon>
+        </button>
+      </div>
+    </div> -->
+
+    <!-- <md-divider></md-divider> -->
+  </md-card>
+</div>
