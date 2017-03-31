@@ -5,9 +5,7 @@ import { Md5 } from 'ts-md5/dist/md5';
 
 import { HttpService } from './http.service';
 import { DataService } from '../services/data.service';
-import { ProfileEntity } from '../entities/profile.entity';
-import { ShowEntity } from '../entities/show.entity';
-import { EpisodeEntity } from '../entities/episode.entity';
+import { ShowEntity, EpisodeEntity, ProfileEntity, CommentEntity } from '../entities';
 
 
 @Injectable()
@@ -58,22 +56,22 @@ export class ApiService {
   }
 
   getUnwatchedEpisodes(): Observable<EpisodeEntity[]> {
-      let url = `${API_HOST}/profile/episodes/unwatched/`;
+    let url = `${API_HOST}/profile/episodes/unwatched/`;
 
-      return this
-        .http
-        .get(url)
-        .map((response: Response) => {
-          let items = response.json();
-          let result: Array<EpisodeEntity> = [];
+    return this
+      .http
+      .get(url)
+      .map((response: Response) => {
+        let items = response.json();
+        let result: Array<EpisodeEntity> = [];
 
-          Object.keys(items).forEach((key) => {
-            let entity = EpisodeEntity.fromJSON(items[key]);
-            result.push(entity);
-          });
-
-          return result;
+        Object.keys(items).forEach((key) => {
+          let entity = EpisodeEntity.fromJSON(items[key]);
+          result.push(entity);
         });
+
+        return result;
+      });
   }
 
   getNextEpisodes(): Observable<any> {
@@ -84,4 +82,24 @@ export class ApiService {
       .get(url)
       .map((response: Response) => response.json());
   }
+
+  getEpisodeComments(episodeId: number): Observable<CommentEntity[]> {
+    let url = `${API_HOST}/profile/comments/episode/${episodeId}`;
+
+    return this.http
+      .get(url)
+      .map((response: Response) => {
+        let json = response.json();
+        let result: Array<CommentEntity> = [];
+
+        if (json.comments) {
+          result = json.comments.map((commentData: any) => {
+            return CommentEntity.fromJSON(commentData);
+          });
+        }
+
+        return result;
+      });
+  }
+
 }

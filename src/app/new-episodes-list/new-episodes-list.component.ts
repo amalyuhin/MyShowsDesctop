@@ -7,7 +7,7 @@ import { ApiService } from '../shared/services/api.service';
 import { DataService } from '../shared/services/data.service';
 import { AppToolbarService } from '../shared/services/appToolbar.service';
 
-require('./new-episodes-list.less');
+require('./new-episodes-list.less')
 
 @Component({
   templateUrl: './new-episodes-list.html'

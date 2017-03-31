@@ -5,19 +5,21 @@ import { AppToolbarService } from './shared/services/appToolbar.service';
 import { DataService } from './shared/services/data.service';
 import { ProfileEntity } from './shared/entities/profile.entity';
 
+require('./app.less');
+
 @Component({
   selector: 'app',
   styles: [
     require('@angular/material/core/theming/prebuilt/indigo-pink.scss')
   ],
   template: `
-  <md-sidenav-container fullscreen>
-    <md-toolbar color="primary" layout="column" *ngIf="showToolbar">
-      <button md-icon-button *ngIf="showMenuButton" (click)="sidenav.toggle()">
-        <md-icon>menu</md-icon>
-      </button>
-      <span>{{ toolbarTitle }}</span>
-    </md-toolbar>
+  <md-toolbar color="primary" layout="column" *ngIf="showToolbar">
+    <button md-icon-button *ngIf="showMenuButton" (click)="sidenav.toggle()">
+      <md-icon>menu</md-icon>
+    </button>
+    <span>{{ toolbarTitle }}</span>
+  </md-toolbar>
+  <md-sidenav-container fullscreen [ngClass]="{'main-container': showToolbar}">
     <md-sidenav style="width:60%" class="md-sidenav-left" #sidenav mode="over">
       <div *ngIf="profile">
         <md-nav-list>

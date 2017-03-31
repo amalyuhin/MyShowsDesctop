@@ -1,5 +1,5 @@
 import * as moment from 'moment';
-import { ShowEntity } from './show.entity';
+import { ShowEntity, CommentEntity } from './';
 
 export class EpisodeEntity {
   id: number;
@@ -10,6 +10,7 @@ export class EpisodeEntity {
   seasonNumber: number;
   airDate: moment.Moment;
   tvrageLink: string;
+  comments: Array<CommentEntity>;
 
   public static fromJSON(json: any): EpisodeEntity {
     let instance = new EpisodeEntity();
