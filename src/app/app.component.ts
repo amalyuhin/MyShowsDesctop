@@ -10,7 +10,7 @@ require('./app.less');
 @Component({
   selector: 'app',
   styles: [
-    require('@angular/material/core/theming/prebuilt/indigo-pink.scss')
+    require('./app.component.scss')
   ],
   template: `
   <md-toolbar color="primary" layout="column" *ngIf="showToolbar">
@@ -19,8 +19,8 @@ require('./app.less');
     </button>
     <span>{{ toolbarTitle }}</span>
   </md-toolbar>
-  <md-sidenav-container fullscreen [ngClass]="{'main-container': showToolbar}">
-    <md-sidenav style="width:60%" class="md-sidenav-left" #sidenav mode="over">
+  <md-sidenav-container class="myshows-sidenav" fullscreen [ngClass]="{'main-container': showToolbar}">
+    <md-sidenav style="width: 300px;" class="md-sidenav-left" #sidenav mode="side">
       <div *ngIf="profile">
         <md-nav-list>
           <md-list-item>

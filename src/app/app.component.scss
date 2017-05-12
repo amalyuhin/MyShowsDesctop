@@ -1,0 +1,17 @@
+@import '~@angular/material/core/theming/all-theme';
+
+@include mat-core();
+
+$myshows-app-primary: mat-palette($mat-red, A700);
+$myshows-app-accent: mat-palette($mat-orange, A200, A100, A400);
+$myshows-app-warn: mat-palette($mat-yellow);
+
+$myshows-app-theme: mat-light-theme($myshows-app-primary, $myshows-app-accent, $myshows-app-warn);
+
+@include angular-material-theme($myshows-app-theme);
+
+.myshows-app {
+  .mat-sidenav-container.myshows-sidenav {
+    background-color: #fff !important;
+  }
+}

@@ -55,7 +55,8 @@ module.exports = function makeWebpackConfig() {
       },
       {
         test: /\.scss$/,
-        loaders: ['raw-loader', 'sass-loader']
+        exclude: /node_modules/,
+        loaders: ['to-string-loader','style-loader', 'css-loader', 'sass-loader']
       },
       {
         test: /\.woff(\?v=\d+\.\d+\.\d+)?$/,

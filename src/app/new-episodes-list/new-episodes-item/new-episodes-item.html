@@ -2,7 +2,7 @@
   <div md-line fxLayout="row">
     <div fxFlex="90" fxLayoutAlign="start center">{{ season.seasonNumber }} сезон ({{ season.episodes.length }} серий)</div>
     <div fxFlex="10" fxLayoutAlign="end center">
-      <a href=javascript:void(0) color="primary" md-icon-button (click)="toggleSeason(season)">
+      <a href=javascript:void(0) md-icon-button (click)="toggleSeason(season)">
         <md-icon *ngIf="isSeasonVisible(season)">keyboard_arrow_up</md-icon>
         <md-icon *ngIf="!isSeasonVisible(season)">keyboard_arrow_down</md-icon>
       </a>
@@ -15,19 +15,26 @@
     <md-list-item *ngFor="let episode of season.episodes">
       <div md-line fxLayout="row" fxLayoutAlign="space-between center">
         <div fxFlex="10">{{ episode.seasonNumber }}x{{ episode.episodeNumber }}</div>
-        <div fxFlex="60">{{ episode.title }}</div>
-        <div fxFlex="30" fxLayout="row" fxLayoutAlign="start center">
+        <div fxFlex="45">{{ episode.title }}</div>
+        <div fxFlex="45" fxLayout="row" fxLayoutAlign="start center">
           <div fxFlex=50>{{ episode.airDate.format('DD.MM.YYYY') }}</div>
           <div fxFlex=25>
-            <a href=javascript:void(0) class="icon-lnk" color="primary">
+            <button md-icon-button color="primary">
               <md-icon>remove_red_eye</md-icon>
-            </a>
+            </button>
+            <!-- <a href=javascript:void(0) class="icon-lnk" color="primary">
+              <md-icon>remove_red_eye</md-icon>
+            </a> -->
           </div>
           <div fxFlex *ngIf="hasEpisodeComments(episode)">
-            <a href=javascript:void(0) class="icon-lnk" color="primary" fxLayoutAlign="start center">
+            <button md-button>
               <md-icon>comment</md-icon>&nbsp;
               {{ episode.comments.length }}
-            </a>
+            </button>
+            <!-- <a href=javascript:void(0) class="icon-lnk" color="primary" fxLayoutAlign="start center">
+              <md-icon>comment</md-icon>&nbsp;
+              {{ episode.comments.length }}
+            </a> -->
           </div>
         </div>
       </div>
