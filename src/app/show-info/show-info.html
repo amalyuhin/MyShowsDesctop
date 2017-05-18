@@ -6,9 +6,8 @@
         <md-tab label="Сериал">
           <div [innerHTML]="showInfo.description"></div>
         </md-tab>
-        <md-tab label="Эпизоды">
-          <p></p>
 
+        <md-tab label="Эпизоды">
           <md-list>
             <div *ngFor="let season of showSeasons">
               <h3 md-subheader>Сезон {{ season.seasonNumber }}</h3>
@@ -26,9 +25,8 @@
               <md-divider></md-divider>
             </div>
           </md-list>
-
-
         </md-tab>
+        
       </md-tab-group>
     </md-card-content>
   </md-card>

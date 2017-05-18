@@ -1,3 +1,21 @@
 .show-info {
+  >.mat-card {
+    max-width: 900px;
+    margin: 0 auto;
 
+    .mat-card-content {
+      .mat-tab-header {
+        margin-top: -67px;
+
+        .mat-tab-label {
+          color: #fff;
+          opacity: .9;
+        }
+      }
+    }
+  }
+
+  .mat-tab-body {
+    overflow: hidden !important;
+  }
 }
