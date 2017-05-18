@@ -18,23 +18,10 @@
         <div fxFlex="45">{{ episode.title }}</div>
         <div fxFlex="45" fxLayout="row" fxLayoutAlign="start center">
           <div fxFlex=50>{{ episode.airDate.format('DD.MM.YYYY') }}</div>
-          <div fxFlex=25>
+          <div fxFlex=50 fxLayoutAlign="end center">
             <button md-icon-button color="primary">
               <md-icon>remove_red_eye</md-icon>
             </button>
-            <!-- <a href=javascript:void(0) class="icon-lnk" color="primary">
-              <md-icon>remove_red_eye</md-icon>
-            </a> -->
-          </div>
-          <div fxFlex *ngIf="hasEpisodeComments(episode)">
-            <button md-button>
-              <md-icon>comment</md-icon>&nbsp;
-              {{ episode.comments.length }}
-            </button>
-            <!-- <a href=javascript:void(0) class="icon-lnk" color="primary" fxLayoutAlign="start center">
-              <md-icon>comment</md-icon>&nbsp;
-              {{ episode.comments.length }}
-            </a> -->
           </div>
         </div>
       </div>

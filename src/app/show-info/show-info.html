@@ -1,0 +1,35 @@
+<div class="show-info">
+  <md-card *ngIf="showInfo">
+    <img md-card-image [src]="showInfo.image">
+    <md-card-content>
+      <md-tab-group>
+        <md-tab label="Сериал">
+          <div [innerHTML]="showInfo.description"></div>
+        </md-tab>
+        <md-tab label="Эпизоды">
+          <p></p>
+
+          <md-list>
+            <div *ngFor="let season of showSeasons">
+              <h3 md-subheader>Сезон {{ season.seasonNumber }}</h3>
+              <md-list-item *ngFor="let episode of season.episodes">
+                <div md-line fxLayout="row" fxLayoutAlign="space-between center">
+                  <div fxFlex="70">
+                    <div md-line>{{ episode.title }}</div>
+                    <div md-line>{{ episode.shortName }} {{ episode.airDate.format('DD.MM.YYYY') }}</div>
+                  </div>
+                  <div fxFlex="30" fxLayoutAlign="end center">
+                    <md-checkbox [(ngModel)]="episode.isViewed"></md-checkbox>
+                  </div>
+                </div>
+              </md-list-item>
+              <md-divider></md-divider>
+            </div>
+          </md-list>
+
+
+        </md-tab>
+      </md-tab-group>
+    </md-card-content>
+  </md-card>
+</div>

@@ -82,6 +82,11 @@ module.exports = function makeWebpackConfig() {
   };
 
   config.plugins = [
+    new webpack.ContextReplacementPlugin(
+      /angular(\\|\/)core(\\|\/)@angular/,
+      path.resolve(__dirname, 'src')
+    ),
+    
     new webpack.optimize.CommonsChunkPlugin({
       name: ['polyfills', 'vendor'].reverse()
     }),

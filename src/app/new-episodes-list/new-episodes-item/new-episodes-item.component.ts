@@ -24,14 +24,6 @@ export class NewEpisodesItemComponent implements OnInit {
           }
 
           currSeason.episodes.push(episode);
-
-          this.apiService
-            .getEpisodeComments(episode.id)
-            .subscribe((comments: Array<CommentEntity>) => {
-              episode.comments = comments;
-
-              console.log(episode);
-            });
       });
     }
   }

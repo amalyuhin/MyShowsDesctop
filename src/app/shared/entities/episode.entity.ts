@@ -6,11 +6,14 @@ export class EpisodeEntity {
   showId: number;
   title: string;
   image: string;
+  shortName: string;
   episodeNumber: number;
   seasonNumber: number;
+  sequenceNumber: number;
   airDate: moment.Moment;
   tvrageLink: string;
   comments: Array<CommentEntity>;
+  isViewed: boolean = false;
 
   public static fromJSON(json: any): EpisodeEntity {
     let instance = new EpisodeEntity();
